@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:barterlt_v1/models/user.dart';
-import 'package:barterlt_v1/views/screens/loginscreen.dart';
-import 'package:barterlt_v1/views/screens/registerscreen.dart';
+import 'package:barterlt_v1/views/screens/profiletabscreen.dart';
+import 'package:barterlt_v1/views/screens/sellertabscreen.dart';
+
+
+import '../../models/user.dart';
+import 'buyertabscreen.dart';
+import 'newstabscreen.dart';
+
 
 class MainScreen extends StatefulWidget {
   final User user;
 
-  const MainScreen({Key? key, required this.user}) : super(key: key);
+  const MainScreen({super.key, required this.user});
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  late List<Widget> tabChildren;
-  String maintitle = "WELCOME";
-  late double screenHeight, screenWidth, cardWidth;
+  late List<Widget> tabchildren;
+  int _currentIndex = 0;
+  String maintitle = "Buyer";
 
   @override
   void initState() {
     super.initState();
-    print("WELCOME");
+    print(widget.user.name);
+    print("Mainscreen");
+    tabchildren =  [
+      BuyerTabScreen(user: widget.user),
+      SellerTabScreen(user: widget.user),
+      ProfileTabScreen(user: widget.user),
+      NewsTabScreen(user: widget.user)
+    ];
   }
 
   @override
@@ -31,89 +43,54 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    screenHeight = MediaQuery.of(context).size.height;
-    screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(maintitle),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              height: screenHeight * 0.25,
-              width: screenWidth,
-              child: Card(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/profille.jpg",
-                              height: 140,
-                              width: 140,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+    
+      body: tabchildren[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: onTabTapped,
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.attach_money,
                 ),
-              ),
-            ),
-            Container(
-              width: screenWidth,
-              alignment: Alignment.center,
-              color: Theme.of(context).colorScheme.background,
-              child: const Padding(
-                padding: EdgeInsets.fromLTRB(0, 2, 0, 2),
-                child: Text(
-                  "",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                label: "Buyer"),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.store_mall_directory,
                 ),
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                children: [
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text("LOGIN"),
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegistrationScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text("REGISTRATION"),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+                label: "Seller"),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                ),
+                label: "Profile"),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.newspaper,
+                ),
+                label: "News")
+          ]),
     );
   }
+
+  void onTabTapped(int value) {
+    setState(() {
+      _currentIndex = value;
+      if (_currentIndex == 0) {
+        maintitle = "Buyer";
+      }
+      if (_currentIndex == 1) {
+        maintitle = "Seller";
+      }
+      if (_currentIndex == 2) {
+        maintitle = "Profile";
+      }
+      if (_currentIndex == 3) {
+        maintitle = "News";
+      }
+    });
+  }
+
 }
