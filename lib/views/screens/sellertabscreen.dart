@@ -31,7 +31,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
   @override
   void initState() {
     super.initState();
-    loadsellerCatches();
+    loadsellerItems();
     print("Seller");
   }
 
@@ -89,7 +89,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                                               user: widget.user,
                                               useritem: singlecatch,
                                             )));
-                                loadsellerCatches();
+                                loadsellerItems();
                               },
                               child: Column(children: [
                                 CachedNetworkImage(
@@ -130,7 +130,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                       builder: (content) => NewItemScreen(
                             user: widget.user,
                           )));
-              loadsellerCatches();
+              loadsellerItems();
             } else {
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text("Please login/register an account")));
@@ -143,7 +143,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
     );
   }
 
-  void loadsellerCatches() {
+  void loadsellerItems() {
     if (widget.user.id == "na") {
       setState(() {
         // titlecenter = "Unregistered User";
@@ -220,7 +220,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
         if (jsondata['status'] == "success") {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Delete Success")));
-          loadsellerCatches();
+          loadsellerItems();
         } else {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Failed")));
