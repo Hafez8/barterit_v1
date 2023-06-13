@@ -10,7 +10,7 @@ import 'newitemscreen.dart';
 import 'edititemscreen.dart';
 // import 'newcatchscreen.dart';
 
-// for fisherman screen
+// for seller screen
 
 class SellerTabScreen extends StatefulWidget {
   final User user;
