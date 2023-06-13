@@ -6,7 +6,7 @@ import 'package:barterlt_v1/models/item.dart';
 import 'package:barterlt_v1/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:barterlt_v1/myconfig.dart';
-import 'barteritemscreen.dart';
+import 'newitemscreen.dart';
 import 'edititemscreen.dart';
 // import 'newcatchscreen.dart';
 
@@ -127,7 +127,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (content) => NewItemBarterScreen(
+                      builder: (content) => NewItemScreen(
                             user: widget.user,
                           )));
               loadsellerCatches();
