@@ -25,12 +25,16 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
   List<Item> itemList = <Item>[];
   late double screenHeight, screenWidth;
   late int axiscount = 2;
+  int numofpage = 1, curpage = 1;
+  int numerofresult = 0;
+  var color;
+
 
   TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    loadCatches();
+    loadItems(1);
     print("Buyer");
   }
 
@@ -121,13 +125,42 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                             ),
                           );
                         },
-                      )))
+                      ))),
+                      SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: numofpage,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index){
+                            if ((curpage - 1) == index){
+                              color = Colors.red;
+                            } else {
+                              color = Colors.green;
+                            }
+                            return TextButton(
+                              onPressed: (){
+                                curpage = index + 1;
+                                loadItems(index + 1);
+                              },
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(color: color, fontSize: 18),
+                              ),
+                            );
+                            
+
+                          }
+                        ),
+                      )
             ]),
+            
     );
+    
   }
 
-  void loadCatches() {
-    http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/load_items.php"),
+  void loadItems(int pg) {
+    http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/load_items"),
         body: {}).then((response) {
       print(response.body);
       log(response.body);
@@ -172,7 +205,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
             ElevatedButton(
                 onPressed: () {
                   String search = searchController.text;
-                  searchCatch(search);
+                  searchItem(search);
                   Navigator.of(context).pop();
                 },
                 child: const Text("Search"))
@@ -193,7 +226,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
     );
   }
 
-  void searchCatch(String search) {
+  void searchItem(String search) {
     http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/load_items.php"),
         body: {"search": search}).then((response) {
       print(response.body);

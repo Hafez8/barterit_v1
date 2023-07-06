@@ -167,48 +167,49 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void onLogin() {
-    if (!_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Check your input")));
-      return;
-    }
-    String email = _emailEditingController.text;
-    String pass = _passEditingController.text;
-    print(pass);
-    try {
-      http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/login_user.php"),
-          body: {
-            "email": email,
-            "password": pass,
-          }).then((response) {
-        print(response.body);
-        if (response.statusCode == 200) {
-          var jsondata = jsonDecode(response.body);
-          if (jsondata['status'] == 'success') {
-            User user = User.fromJson(jsondata['data']);
-            print(user.name);
-            print(user.email);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text("Login Success")));
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (content) => MainScreen(
-                          user: user,
-                        )));
-          } else {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text("Login Failed")));
-          }
-        }
-      }).timeout(const Duration(seconds: 5), onTimeout: () {
-        // Time has run out, do what you wanted to do.
-      });
-    } on TimeoutException catch (_) {
-      print("Time out");
-    }
+void onLogin() {
+  if (!_formKey.currentState!.validate()) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Check your input")));
+    return;
   }
+  String email = _emailEditingController.text;
+  String pass = _passEditingController.text;
+  print(pass);
+  try {
+    http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/login_user.php"),
+        body: {
+          "email": email,
+          "password": pass,
+        }).then((response) {
+      print(response.body);
+      if (response.statusCode == 200) {
+        var jsondata = jsonDecode(response.body);
+        print(jsondata); // Print the decoded JSON data
+        if (jsondata['status'] == 'success') {
+          User user = User.fromJson(jsondata['data']);
+          print(user.name);
+          print(user.email);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Login Success")));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (content) => MainScreen(
+                        user: user,
+                      )));
+        } else {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Login Failed")));
+        }
+      }
+    }).timeout(const Duration(seconds: 5), onTimeout: () {
+      // Time has run out, do what you wanted to do.
+    });
+  } on TimeoutException catch (_) {
+    print("Time out");
+  }
+}
 
   void _forgotDialog() {}
 

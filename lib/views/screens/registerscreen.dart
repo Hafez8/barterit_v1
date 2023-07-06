@@ -246,46 +246,55 @@ class RegistrationScreen extends StatefulWidget{
     );
   
     }
-    void registerUser(){
-      showDialog(
-        context: context, 
-        builder: (BuildContext context){
-          return const AlertDialog(
-            title: Text("Please Wait..."),
-            content: Text("Registration..."),
-          );
-        }
-        );
-        String name = _nameEditingController.text;
-        String phone = _phonelditingController.text;
-        String email = _emailditingController.text;
-        String passa = _passEditingController.text;
+void registerUser() async {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        title: Text("Please Wait..."),
+        content: Text("Registration..."),
+      );
+    },
+  );
 
-        http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/register_user.php"),
-        body: {
-          "name": name,
-          "phone": phone,
-          "email": email,
-          "password": passa,
-        }
-        ).then((response){
-           if (response.statusCode == 200) {
-        var jsondata = jsonDecode(response.body);
-        if (jsondata['status'] == 'success') {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Registration Success")));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Registration Failed")));
-        }
-        Navigator.pop(context);
-      } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Registration Failed")));
-        Navigator.pop(context);
-      }
-        });
+  String name = _nameEditingController.text;
+  String phone = _phonelditingController.text;
+  String email = _emailditingController.text;
+  String passw = _passEditingController.text;
+
+  var url = Uri.parse("${MyConfig().SERVER}/barterit/php/register_user.php");
+
+  var response = await http.post(
+    url,
+    body: {
+      "name": name,
+      "phone": phone,
+      "email": email,
+      "password": passw,
+    },
+  );
+ print(response.body);
+ 
+  if (response.statusCode == 200) {
+    var jsondata = jsonDecode(response.body);
+    if (jsondata['status'] == 'success') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Registration Success")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Registration Failed")),
+      );
     }
+    Navigator.pop(context);
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Registration Failed")),
+    );
+    Navigator.pop(context);
+  }
+}
+
     void _goLogin(){}
     
   }
