@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:barterlt_v1/myconfig.dart';
 import 'newitemscreen.dart';
 import 'edititemscreen.dart';
-// import 'newcatchscreen.dart';
+// import 'newitemscreen.dart';
 
 // for seller screen
 
@@ -64,7 +64,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                 color: Theme.of(context).colorScheme.primary,
                 alignment: Alignment.center,
                 child: Text(
-                  "${ItemList.length} Catches Found",
+                  "${ItemList.length} item Found",
                   style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
@@ -80,14 +80,14 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                                 onDeleteDialog(index);
                               },
                               onTap: () async {
-                                Item singlecatch =
+                                Item singleitem =
                                     Item.fromJson(ItemList[index].toJson());
                                 await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (content) => EditItemScreen(
                                               user: widget.user,
-                                              useritem: singlecatch,
+                                              useritem: singleitem,
                                             )));
                                 loadsellerItems();
                               },
@@ -160,7 +160,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {
           var extractdata = jsondata['data'];
-          extractdata['catches'].forEach((v) {
+          extractdata['item'].forEach((v) {
             ItemList.add(Item.fromJson(v));
           });
           print(ItemList[0].itemName);
@@ -188,7 +188,7 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
                 style: TextStyle(),
               ),
               onPressed: () {
-                deleteCatch(index);
+                deleteitem(index);
                 Navigator.of(context).pop();
               },
             ),
@@ -207,14 +207,14 @@ class _SellerTabScreenState extends State<SellerTabScreen> {
     );
   }
 
-  void deleteCatch(int index) {
+  void deleteitem(int index) {
     http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/delete_item.php"),
         body: {
           "userid": widget.user.id,
-          "catchid": ItemList[index].itemId
+          "itemid": ItemList[index].itemId
         }).then((response) {
       print(response.body);
-      //catchList.clear();
+      //itemList.clear();
       if (response.statusCode == 200) {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {

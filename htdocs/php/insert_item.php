@@ -21,13 +21,13 @@ $image = $_POST['image'];
 
 
 $sqlinsert = "INSERT INTO `tbl_item`(`item_id`,`item_name`, `item_desc`, `item_type`, `item_price`, `item_qty`, `item_lat`, `item_long`, `item_state`, `item_locality`)
-VALUES ('$userid','$item_name','$catch_desc','$item_type','$item_price','$item_qty','$latitude','$longitude','$state','$locality')";
+VALUES ('$userid','$item_name','$item_desc','$item_type','$item_price','$item_qty','$latitude','$longitude','$state','$locality')";
 
 if ($conn->query($sqlinsert) === TRUE) {
 	$filename = mysqli_insert_id($conn);
 	$response = array('status' => 'success', 'data' => null);
 	$decoded_string = base64_decode($image);
-	$path = '../assets/catches/'.$filename.'.png';
+	$path = '../assets/item/'.$filename.'.png';
 	file_put_contents($path, $decoded_string);
     sendJsonResponse($response);
 }else{

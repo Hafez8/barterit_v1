@@ -56,7 +56,7 @@ class _NewItemScreen extends State<NewItemScreen> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: const Text("Insert New Catch"), actions: [
+      appBar: AppBar(title: const Text("Insert New item"), actions: [
         IconButton(
             onPressed: () {
               _determinePosition();
@@ -330,7 +330,7 @@ class _NewItemScreen extends State<NewItemScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           title: const Text(
-            "Insert your catch?",
+            "Insert your item?",
             style: TextStyle(),
           ),
           content: const Text("Are you sure?", style: TextStyle()),
@@ -370,7 +370,7 @@ class _NewItemScreen extends State<NewItemScreen> {
     String locality = _prlocalEditingController.text;
     String base64Image = base64Encode(_image!.readAsBytesSync());
 
-    http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/insert_catch.php"),
+    http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/insert_item.php"),
         body: {
           "userid": widget.user.id.toString(),
           "itemname": itemname,

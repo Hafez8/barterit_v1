@@ -6,10 +6,10 @@ import 'package:barterlt_v1/models/user.dart';
 import 'package:barterlt_v1/myconfig.dart';
 
 class SellerDetailsScreen extends StatefulWidget {
-  final Item usercatch;
+  final Item useritem;
   final User user;
   const SellerDetailsScreen(
-      {super.key, required this.usercatch, required this.user});
+      {super.key, required this.useritem, required this.user});
 
   @override
   State<SellerDetailsScreen> createState() => _SellerDetailsScreenState();
@@ -39,7 +39,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                     width: screenWidth,
                     fit: BoxFit.cover,
                     imageUrl:
-                        "${MyConfig().SERVER}/barterit/assets/items/${widget.usercatch.itemId}.png",
+                        "${MyConfig().SERVER}/barterit/assets/items/${widget.useritem.itemId}.png",
                     placeholder: (context, url) =>
                         const LinearProgressIndicator(),
                     errorWidget: (context, url, error) =>
@@ -51,7 +51,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
         Container(
             padding: const EdgeInsets.all(8),
             child: Text(
-              widget.usercatch.itemName.toString(),
+              widget.useritem.itemName.toString(),
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             )),
         Expanded(
@@ -72,7 +72,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   ),
                   TableCell(
                     child: Text(
-                      widget.usercatch.itemDesc.toString(),
+                      widget.useritem.itemDesc.toString(),
                     ),
                   )
                 ]),
@@ -85,7 +85,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   ),
                   TableCell(
                     child: Text(
-                      widget.usercatch.itemType.toString(),
+                      widget.useritem.itemType.toString(),
                     ),
                   )
                 ]),
@@ -98,7 +98,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   ),
                   TableCell(
                     child: Text(
-                      widget.usercatch.itemQty.toString(),
+                      widget.useritem.itemQty.toString(),
                     ),
                   )
                 ]),
@@ -111,7 +111,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   ),
                   TableCell(
                     child: Text(
-                      "RM ${double.parse(widget.usercatch.itemPrice.toString()).toStringAsFixed(2)}",
+                      "RM ${double.parse(widget.useritem.itemPrice.toString()).toStringAsFixed(2)}",
                     ),
                   )
                 ]),
@@ -124,7 +124,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   ),
                   TableCell(
                     child: Text(
-                      "${widget.usercatch.itemLocality}/${widget.usercatch.itemState}",
+                      "${widget.useritem.itemLocality}/${widget.useritem.itemState}",
                     ),
                   )
                 ]),
@@ -138,7 +138,7 @@ class _SellerDetailsScreenState extends State<SellerDetailsScreen> {
                   TableCell(
                     child: Text(
                       df.format(DateTime.parse(
-                          widget.usercatch.itemDate.toString())),
+                          widget.useritem.itemDate.toString())),
                     ),
                   )
                 ]),

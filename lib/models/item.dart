@@ -27,34 +27,34 @@ class Item {
       this.itemDate});
 
   Item.fromJson(Map<String, dynamic> json) {
-    itemId = json['catch_id'];
+    itemId = json['item_id'];
     userId = json['user_id'];
-    itemName = json['catch_name'];
-    itemType = json['catch_type'];
-    itemDesc = json['catch_desc'];
-    itemPrice = json['catch_price'];
-    itemQty = json['catch_qty'];
-    itemLat = json['catch_lat'];
-    itemLong = json['catch_long'];
-    itemState = json['catch_state'];
-    itemLocality = json['catch_locality'];
-    itemDate = json['catch_date'];
+    itemName = json['item_name'];
+    itemType = json['item_type'];
+    itemDesc = json['item_desc'];
+    itemPrice = json['item_price'];
+    itemQty = json['item_qty'];
+    itemLat = json['item_lat'];
+    itemLong = json['item_long'];
+    itemState = json['item_state'];
+    itemLocality = json['item_locality'];
+    itemDate = json['item_date'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['catch_id'] = itemId;
+    data['item_id'] = itemId;
     data['user_id'] = userId;
-    data['catch_name'] = itemName;
-    data['catch_type'] = itemType;
-    data['catch_desc'] = itemDesc;
-    data['catch_price'] = itemPrice;
-    data['catch_qty'] = itemQty;
-    data['catch_lat'] = itemLat;
-    data['catch_long'] = itemLong;
-    data['catch_state'] = itemState;
-    data['catch_locality'] = itemLocality;
-    data['catch_date'] = itemDate;
+    data['item_name'] = itemName;
+    data['item_type'] = itemType;
+    data['item_desc'] = itemDesc;
+    data['item_price'] = itemPrice;
+    data['item_qty'] = itemQty;
+    data['item_lat'] = itemLat;
+    data['item_long'] = itemLong;
+    data['item_state'] = itemState;
+    data['item_locality'] = itemLocality;
+    data['item_date'] = itemDate;
     return data;
   }
 }

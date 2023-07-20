@@ -176,11 +176,13 @@ void onLogin() {
   String email = _emailEditingController.text;
   String pass = _passEditingController.text;
   print(pass);
+  print(email);
+
   try {
     http.post(Uri.parse("${MyConfig().SERVER}/barterit/php/login_user.php"),
         body: {
           "email": email,
-          "password": pass,
+          "pass": pass,
         }).then((response) {
       print(response.body);
       if (response.statusCode == 200) {
@@ -190,6 +192,7 @@ void onLogin() {
           User user = User.fromJson(jsondata['data']);
           print(user.name);
           print(user.email);
+          print(user.password);
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Login Success")));
           Navigator.pushReplacement(

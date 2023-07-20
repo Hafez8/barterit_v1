@@ -74,7 +74,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                 color: Theme.of(context).colorScheme.primary,
                 alignment: Alignment.center,
                 child: Text(
-                  "${itemList.length} Catches Found",
+                  "${itemList.length} Items Found",
                   style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
@@ -95,7 +95,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                         builder: (content) =>
                                             SellerDetailsScreen(
                                               user: widget.user,
-                                              usercatch: useritem,
+                                              useritem: useritem,
                                             )));
                               },
                               child: Column(children: [
@@ -148,8 +148,6 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
                                 style: TextStyle(color: color, fontSize: 18),
                               ),
                             );
-                            
-
                           }
                         ),
                       )
@@ -236,7 +234,7 @@ class _BuyerTabScreenState extends State<BuyerTabScreen> {
         var jsondata = jsonDecode(response.body);
         if (jsondata['status'] == "success") {
           var extractdata = jsondata['data'];
-          extractdata['catches'].forEach((v) {
+          extractdata['item'].forEach((v) {
             itemList.add(Item.fromJson(v));
           });
           print(itemList[0].itemName);

@@ -261,6 +261,8 @@ void registerUser() async {
   String phone = _phonelditingController.text;
   String email = _emailditingController.text;
   String passw = _passEditingController.text;
+  print(passw);
+  print(email);
 
   var url = Uri.parse("${MyConfig().SERVER}/barterit/php/register_user.php");
 

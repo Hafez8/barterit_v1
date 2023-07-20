@@ -292,7 +292,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                updateCatch();
+                updateitem();
                 //registerUser();
               },
             ),
@@ -311,7 +311,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
     );
   }
 
-  void updateCatch() {
+  void updateitem() {
     String itemname = _itemnameEditingController.text;
     String itemdesc = _itemdescEditingController.text;
     String itemprice = _itempriceEditingController.text;
